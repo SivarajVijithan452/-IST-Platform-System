@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock API Data</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background-color: #333;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px;
+            margin: 0 10px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        .nav-link {
+      float: left;
+      display: block;
+      color: #f2f2f2;
+      text-align: center;
+      padding: 14px 16px;
+      text-decoration: none;
+    }
+
+    .nav-link:hover {
+      background-color: #ddd;
+      color: black;
+    }
+
+    .nav-right {
+      float: right;
+    }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+        <a class="nav-link" href="/data">Data</a>
+        <a class="nav-link" href="{{ url_for('stock_api') }}">Stock API Keys</a>
+        <div class="nav-right">
+            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+        </div>
+    </div>
+
+    <h1>Stock API Data</h1>
+
+    {% if stock_data %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Symbol</th>
+                    <th>Company Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for company in stock_data %}
+                    <tr>
+                        <td>{{ company.symbol }}</td>
+                        <td>{{ company.company_name }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No stock data available.</p>
+    {% endif %}
+</body>
+</html>
